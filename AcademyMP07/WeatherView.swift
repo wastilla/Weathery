@@ -21,19 +21,22 @@ struct WeatherView: View {
                     .font(.system(.largeTitle, design: .rounded))
                     .foregroundColor(.white)
                     .bold()
+                
+                Image(systemName: viewModel.weatherIcon)
+                    .font(.system(size: 75, design: .rounded))
+                    .foregroundColor(.white)
+                    .bold()
+                    .padding([.top])
                 Text(viewModel.description)
                     .font(.system(.title2, design: .rounded))
                     .foregroundColor(.white)
+                    .padding([.bottom], 5)
                  
-                Image(systemName: viewModel.weatherIcon)
-                    .font(.system(.largeTitle, design: .rounded))
-                    .foregroundColor(.white)
-                    .bold()
-                    .padding()
                 Text(viewModel.temperature)
-                    .font(.system(.largeTitle, design: .rounded))
+                    .font(.system(size: 100, design: .rounded))
                     .foregroundColor(.white)
                     .bold()
+                    .padding([.bottom])
                 
                 HStack {
                     Text("high: \(viewModel.lowTemp)")
@@ -43,7 +46,6 @@ struct WeatherView: View {
                         .font(.system(.title2, design: .rounded))
                         .foregroundColor(.white)
                 }
-                .padding()
             }
         }
         .onAppear{
