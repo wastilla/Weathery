@@ -59,13 +59,12 @@
 		7406CFE12909C6640033F87D /* AcademyMP07 */ = {
 			isa = PBXGroup;
 			children = (
-				74FF9B43290C6C4700B34AF3 /* Extensions */,
-				7406CFE22909C6640033F87D /* AcademyMP07App.swift */,
-				7406CFE42909C6650033F87D /* ContentView.swift */,
-				74FF9B462910986A00B34AF3 /* WeatherView.swift */,
+				742080162912A8450082869F /* Views */,
 				7406CFF32909CC8A0033F87D /* ViewModels */,
 				7406CFF02909CAD80033F87D /* Model */,
+				7406CFE22909C6640033F87D /* AcademyMP07App.swift */,
 				7406CFE62909C6650033F87D /* Assets.xcassets */,
+				74FF9B43290C6C4700B34AF3 /* Extensions */,
 				7406CFE82909C6650033F87D /* Preview Content */,
 			);
 			path = AcademyMP07;
@@ -93,6 +92,15 @@
 				7406CFF42909CCA40033F87D /* WeatherViewModel.swift */,
 			);
 			path = ViewModels;
+			sourceTree = "<group>";
+		};
+		742080162912A8450082869F /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				74FF9B462910986A00B34AF3 /* WeatherView.swift */,
+				7406CFE42909C6650033F87D /* ContentView.swift */,
+			);
+			path = Views;
 			sourceTree = "<group>";
 		};
 		74FF9B43290C6C4700B34AF3 /* Extensions */ = {

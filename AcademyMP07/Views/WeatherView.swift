@@ -22,6 +22,20 @@ struct WeatherView: View {
                     .foregroundColor(.white)
                     .bold()
                 
+                Text(viewModel.temperature)
+                    .font(.system(size: 100))
+                    .foregroundColor(.white)
+                    .bold()
+                    
+                HStack {
+                    Text("high: \(viewModel.highTemp)")
+                        .font(.system(.title2, design: .rounded))
+                        .foregroundColor(.white)
+                    Text("low: \(viewModel.lowTemp)")
+                        .font(.system(.title2, design: .rounded))
+                        .foregroundColor(.white)
+                }
+                
                 Image(systemName: viewModel.weatherIcon)
                     .font(.system(size: 75, design: .rounded))
                     .foregroundColor(.white)
@@ -31,24 +45,9 @@ struct WeatherView: View {
                     .font(.system(.title2, design: .rounded))
                     .foregroundColor(.white)
                     .padding([.bottom], 5)
-                 
-                Text(viewModel.temperature)
-                    .font(.system(size: 100, design: .rounded))
-                    .foregroundColor(.white)
-                    .bold()
-                    .padding([.bottom])
-                
-                HStack {
-                    Text("high: \(viewModel.lowTemp)")
-                        .font(.system(.title2, design: .rounded))
-                        .foregroundColor(.white)
-                    Text("low: \(viewModel.highTemp)")
-                        .font(.system(.title2, design: .rounded))
-                        .foregroundColor(.white)
-                }
             }
         }
-        .onAppear{
+        .onAppear {
             viewModel.query = self.query
         }
         .task {
@@ -56,4 +55,3 @@ struct WeatherView: View {
         }
     }
 }
-

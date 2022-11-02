@@ -10,12 +10,12 @@ import SwiftUI
 struct ContentView: View {
     @State var query: String = ""
     var body: some View {
-        NavigationStack{
-            ZStack{
+        NavigationStack {
+            ZStack {
                 LinearGradient(gradient: Gradient(colors: [Color("Lightblue"), .blue]), startPoint: .top, endPoint: .bottom)
                     .ignoresSafeArea()
-                VStack(alignment: .center){
-                    HStack{
+                VStack(alignment: .center) {
+                    HStack {
                         Text("Weathery")
                             .bold()
                             .font(.system(.largeTitle, design: .rounded))
@@ -32,8 +32,8 @@ struct ContentView: View {
                         .font(.title2)
                         .multilineTextAlignment(.center)
                         .backgroundStyle(.gray)
-                        .padding([.leading,.trailing], 40)
-                    NavigationLink<Text, WeatherView>{
+                        .padding([.leading, .trailing], 40)
+                    NavigationLink<Text, WeatherView> {
                         WeatherView(query: $query)
                         
                     } label: {
@@ -45,10 +45,7 @@ struct ContentView: View {
                     .padding([.bottom], 250)
                 }
             }
-            
-            
         }
-       
     }
 }
 
