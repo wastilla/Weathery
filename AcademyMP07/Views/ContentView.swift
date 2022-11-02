@@ -9,10 +9,10 @@ import SwiftUI
 
 struct ContentView: View {
     @State var query: String = ""
+    @StateObject var viewModel = WeatherViewModel()
     var body: some View {
         NavigationStack {
             ZStack {
-                
                 LinearGradient(gradient: Gradient(colors: [Color("Lightblue"), .blue]), startPoint: .top, endPoint: .bottom)
                     .ignoresSafeArea()
                 VStack(alignment: .center) {
@@ -34,16 +34,46 @@ struct ContentView: View {
                         .multilineTextAlignment(.center)
                         .backgroundStyle(.gray)
                         .padding([.leading, .trailing], 40)
-                    NavigationLink<Text, WeatherView> {
-                        WeatherView(query: $query)
-                        
-                    } label: {
+                    Button(action: {
+                        viewModel.query = self.query
+                        Task {
+                            await viewModel.fetch2()
+                        }
+                    }, label: {
                         Text("Search")
                             .bold()
-                            .font(.system(.title, design: .rounded))
+                            .font(.system(.largeTitle, design: .rounded))
+                            .foregroundColor(.white)
+                    })
+
+                    Text(viewModel.weather?.name ?? "none")
+                        .font(.system(.largeTitle, design: .rounded))
+                        .foregroundColor(.white)
+                        .bold()
+                    
+                    Text(viewModel.temperature)
+                        .font(.system(size: 100))
+                        .foregroundColor(.white)
+                        .bold()
+                        
+                    HStack {
+                        Text("high: \(viewModel.highTemp)")
+                            .font(.system(.title2, design: .rounded))
+                            .foregroundColor(.white)
+                        Text("low: \(viewModel.lowTemp)")
+                            .font(.system(.title2, design: .rounded))
                             .foregroundColor(.white)
                     }
-                    .padding([.bottom], 250)
+                    
+                    Image(systemName: viewModel.weatherIcon)
+                        .font(.system(size: 75, design: .rounded))
+                        .foregroundColor(.white)
+                        .bold()
+                        .padding([.top])
+                    Text(viewModel.description)
+                        .font(.system(.title2, design: .rounded))
+                        .foregroundColor(.white)
+                        .padding([.bottom], 5)
                 }
             }
         }

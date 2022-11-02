@@ -12,6 +12,10 @@ let apiKey = "755f77160a12ded1eddd9adc20b9c3f4"
 class WeatherViewModel: ObservableObject {
     @Published var weather: Weather?
     @Published var query: String = ""
+    @Published var cities: [String] = []
+    @Published var languages: [String] = []
+    @Published var units: [String] = []
+    
     
     init() {
         self.weather = Weather.example
