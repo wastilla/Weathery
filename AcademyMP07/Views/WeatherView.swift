@@ -45,6 +45,8 @@ struct WeatherView: View {
                     .font(.system(.title2, design: .rounded))
                     .foregroundColor(.white)
                     .padding([.bottom], 5)
+                 
+                
             }
         }
         .onAppear {
