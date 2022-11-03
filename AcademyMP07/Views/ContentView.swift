@@ -9,7 +9,11 @@ import SwiftUI
 
 struct ContentView: View {
     @State var query: String = ""
+    @State private var showingSheet = false
+    @State var citiesList: [String] = []
+    
     @StateObject var viewModel = WeatherViewModel()
+    
     var body: some View {
         NavigationStack {
             ZStack {
@@ -25,17 +29,36 @@ struct ContentView: View {
                         Image(systemName: "sun.max")
                             .font(.system(.largeTitle, design: .rounded))
                             .foregroundColor(.yellow)
+                            .bold()
+                        
+                        Spacer()
+                        
+                        Button(action: {
+                            showingSheet.toggle()
+                        }) {
+                            Image(systemName: "plus")
+                                .font(.system(.title))
+                                .foregroundColor(.white)
+                                .bold()
+                        }
                     }
                     .padding([.bottom], 200)
+                    .padding([.leading, .trailing], 20)
                     
-                    TextField("Enter a City", text: $query)
-                        .textFieldStyle(RoundedBorderTextFieldStyle())
-                        .font(.title2)
-                        .multilineTextAlignment(.center)
-                        .backgroundStyle(.gray)
-                        .padding([.leading, .trailing], 40)
+                    if viewModel.cities.count != 0 {
+                        ForEach(viewModel.cities, id: \.self) { city in
+                            Text(city)
+                        }
+                    } else {
+                        Text("Nothin")
+                    }
+                    
+                    /*
+                     WeatherCardView(name: viewModel.weather?.name, temperature: viewModel.temperature, highTemp: viewModel.highTemp, lowTemp: viewModel.lowTemp, weatherIcon: viewModel.weatherIcon, description: viewModel.description)
+                    
                     Button(action: {
                         viewModel.query = self.query
+                        
                         Task {
                             await viewModel.fetch2()
                         }
@@ -43,38 +66,15 @@ struct ContentView: View {
                         Text("Search")
                             .bold()
                             .font(.system(.largeTitle, design: .rounded))
-                            .foregroundColor(.white)
-                    })
-
-                    Text(viewModel.weather?.name ?? "none")
-                        .font(.system(.largeTitle, design: .rounded))
-                        .foregroundColor(.white)
-                        .bold()
-                    
-                    Text(viewModel.temperature)
-                        .font(.system(size: 100))
-                        .foregroundColor(.white)
-                        .bold()
-                        
-                    HStack {
-                        Text("high: \(viewModel.highTemp)")
-                            .font(.system(.title2, design: .rounded))
-                            .foregroundColor(.white)
-                        Text("low: \(viewModel.lowTemp)")
-                            .font(.system(.title2, design: .rounded))
-                            .foregroundColor(.white)
-                    }
-                    
-                    Image(systemName: viewModel.weatherIcon)
-                        .font(.system(size: 75, design: .rounded))
-                        .foregroundColor(.white)
-                        .bold()
-                        .padding([.top])
-                    Text(viewModel.description)
-                        .font(.system(.title2, design: .rounded))
-                        .foregroundColor(.white)
-                        .padding([.bottom], 5)
+                            .foregroundColor(.black)
+                    })*/
                 }
+            }
+            .sheet(isPresented: $showingSheet) {
+                SheetView(showingSheet: $showingSheet, citiesList: $citiesList, viewModel: viewModel)
+            }
+            .onAppear {
+                viewModel.cities = citiesList
             }
         }
     }

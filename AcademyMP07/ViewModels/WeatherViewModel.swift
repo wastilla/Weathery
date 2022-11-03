@@ -12,9 +12,9 @@ let apiKey = "755f77160a12ded1eddd9adc20b9c3f4"
 class WeatherViewModel: ObservableObject {
     @Published var weather: Weather?
     @Published var query: String = ""
-    @Published var cities: [String] = []
+    @Published var cities: [String] = ["Raleigh", "Durham", "Charlotte"]
     @Published var languages: [String] = []
-    @Published var units: [String] = []
+    @Published var units: [String] = ["Metric", "Imperial", "Fahrenheit"]
     
     
     init() {
@@ -83,6 +83,10 @@ class WeatherViewModel: ObservableObject {
         }
         
         return ""
+    }
+    
+    func addCity(city: String){
+        self.cities.append(city)
     }
     
     func fetch2() async {
