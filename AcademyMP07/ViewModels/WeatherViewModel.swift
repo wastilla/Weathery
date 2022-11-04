@@ -10,13 +10,15 @@ import Foundation
 let apiKey = "755f77160a12ded1eddd9adc20b9c3f4"
 
 class WeatherViewModel: ObservableObject {
+    @Published var weathers: [Weather] = []
+    
     @Published var weather: Weather?
+    @Published var cities: [String] = []
     @Published var query: String = ""
-    @Published var cities: [String] = ["Raleigh", "Durham", "Charlotte"]
     @Published var languages: [String] = []
     @Published var units: [String] = ["Metric", "Imperial", "Fahrenheit"]
-    
-    
+   
+
     init() {
         self.weather = Weather.example
     }
@@ -49,37 +51,41 @@ class WeatherViewModel: ObservableObject {
         return String(format: "%.0F F", temp.toFahrenheit())
     }
     
-    var weatherIcon: String {
-        let description: String? = weather?.weather?[0].weatherDescription ?? ""
+    func getWeatherIcon(description: String) -> String {
+        //let description: String? = weather?.weather?[0].weatherDescription ?? ""
         
-        if description?.range(of: "clear", options: .caseInsensitive) != nil {
+        if description.range(of: "clear", options: .caseInsensitive) != nil {
             return "sun.max"
         }
         
-        else if description?.range(of: "overcast", options: .caseInsensitive) != nil {
+        else if description.range(of: "overcast", options: .caseInsensitive) != nil {
             return "cloud.sun"
         }
         
-        else if description?.range(of: "thunderstorm", options: .caseInsensitive) != nil {
+        else if description.range(of: "thunderstorm", options: .caseInsensitive) != nil {
             return "cloud.bolt.rain"
         }
         
-        else if description?.range(of: "snow", options: .caseInsensitive) != nil {
+        else if description.range(of: "snow", options: .caseInsensitive) != nil {
             return "cloud.snow"
         }
         
-        else if description?.range(of: "heavy rain", options: .caseInsensitive) != nil {
+        else if description.range(of: "heavy rain", options: .caseInsensitive) != nil {
             return "cloud.heavyrain"
         }
-        else if description?.range(of: "moderate rain", options: .caseInsensitive) != nil {
+        else if description.range(of: "moderate rain", options: .caseInsensitive) != nil {
             return "cloud.drizzle"
         }
-        else if description?.range(of: "rain", options: .caseInsensitive) != nil {
+        else if description.range(of: "rain", options: .caseInsensitive) != nil {
             return "cloud.drizzle"
         }
         
-        else if description?.range(of: "cloud", options: .caseInsensitive) != nil {
+        else if description.range(of: "cloud", options: .caseInsensitive) != nil {
             return "cloud"
+        }
+        
+        else if description.range(of: "broken clouds", options: .caseInsensitive) != nil {
+            return "cloud.sun"
         }
         
         return ""
@@ -89,8 +95,9 @@ class WeatherViewModel: ObservableObject {
         self.cities.append(city)
     }
     
-    func fetch2() async {
+    func fetch2(query: String) async {
         print("Starting Fetch2")
+    
         let replaced = (query as NSString).replacingOccurrences(of: " ", with: "+")
      
         guard let url = URL(string: "https://api.openweathermap.org/data/2.5/weather?q=\(replaced)&appid=\(apiKey)") else {
@@ -103,7 +110,7 @@ class WeatherViewModel: ObservableObject {
             
             if let decodedData = try? JSONDecoder().decode(Weather.self, from: data) {
                 print(decodedData)
-                weather = decodedData
+                weathers.append(decodedData)
             } else {
                 print("Decoding error")
             }

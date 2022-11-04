@@ -11,9 +11,7 @@ import SwiftUI
 struct SheetView: View {
     @State var newCity: String = ""
     
-    
     @Binding var showingSheet: Bool
-    @Binding var citiesList: [String]
     
     @ObservedObject var viewModel: WeatherViewModel
     
@@ -24,7 +22,6 @@ struct SheetView: View {
             Button("Close"){
                 self.showingSheet.toggle()
             }
-            Text("This is the sheet!")
             
             TextField("Enter a City", text: $newCity)
                 .textFieldStyle(RoundedBorderTextFieldStyle())
@@ -32,8 +29,14 @@ struct SheetView: View {
                 .multilineTextAlignment(.center)
                 .padding([.leading, .trailing], 40)
                 .onSubmit {
-                    showingSheet = false
-                    viewModel.cities.append(newCity)
+                    if !viewModel.cities.contains(newCity){
+                        showingSheet = false
+                        viewModel.cities.append(newCity)
+                        Task {
+                            await viewModel.fetch2(query: newCity)
+                        }
+                    }
+                    
                 }
             
         }

@@ -8,10 +8,9 @@
 import SwiftUI
 
 struct ContentView: View {
-    @State var query: String = ""
-    @State private var showingSheet = false
-    @State var citiesList: [String] = []
     
+    @State private var showingSheet = false
+   
     @StateObject var viewModel = WeatherViewModel()
     
     var body: some View {
@@ -45,36 +44,43 @@ struct ContentView: View {
                     .padding([.bottom], 200)
                     .padding([.leading, .trailing], 20)
                     
-                    if viewModel.cities.count != 0 {
-                        ForEach(viewModel.cities, id: \.self) { city in
-                            Text(city)
+                    ScrollView(.horizontal) {
+                        HStack {
+                            if viewModel.weathers.count != 0 {
+                                ForEach(viewModel.weathers) { weather in
+                                    VStack {
+                                        WeatherCardView(viewModel: viewModel, weather: weather)
+                                    }
+                                }
+                            } else {
+                                Text("Cick the \"+\" to enter a city! ")
+                                    .font(.system(.title, design: .rounded))
+                                    .foregroundColor(.white)
+                                    .bold()
+                            }
                         }
-                    } else {
-                        Text("Nothin")
                     }
+                    .padding([.leading], 20)
                     
                     /*
-                     WeatherCardView(name: viewModel.weather?.name, temperature: viewModel.temperature, highTemp: viewModel.highTemp, lowTemp: viewModel.lowTemp, weatherIcon: viewModel.weatherIcon, description: viewModel.description)
+                      WeatherCardView(name: viewModel.weather?.name, temperature: viewModel.temperature, highTemp: viewModel.highTemp, lowTemp: viewModel.lowTemp, weatherIcon: viewModel.weatherIcon, description: viewModel.description)
                     
-                    Button(action: {
-                        viewModel.query = self.query
+                     Button(action: {
+                         viewModel.query = self.query
                         
-                        Task {
-                            await viewModel.fetch2()
-                        }
-                    }, label: {
-                        Text("Search")
-                            .bold()
-                            .font(.system(.largeTitle, design: .rounded))
-                            .foregroundColor(.black)
-                    })*/
+                         Task {
+                             await viewModel.fetch2()
+                         }
+                     }, label: {
+                         Text("Search")
+                             .bold()
+                             .font(.system(.largeTitle, design: .rounded))
+                             .foregroundColor(.black)
+                     })*/
                 }
             }
             .sheet(isPresented: $showingSheet) {
-                SheetView(showingSheet: $showingSheet, citiesList: $citiesList, viewModel: viewModel)
-            }
-            .onAppear {
-                viewModel.cities = citiesList
+                SheetView(showingSheet: $showingSheet, viewModel: viewModel)
             }
         }
     }

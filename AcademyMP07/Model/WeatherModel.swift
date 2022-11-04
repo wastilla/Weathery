@@ -11,7 +11,7 @@ import Foundation
 
 // MARK: - Weather
 
-struct Weather: Codable {
+struct Weather: Codable, Identifiable {
     let coord: Coord?
     let weather: [WeatherElement]?
     let base: String?
@@ -22,7 +22,8 @@ struct Weather: Codable {
     let clouds: Clouds?
     let dt: Int?
     let sys: Sys?
-    let timezone, id: Int?
+    let timezone: Int?
+    let id: Int?
     let name: String?
     let cod: Int?
 }
@@ -59,10 +60,10 @@ struct Main: Codable {
 // MARK: - Rain
 
 struct Rain: Codable {
-    let the1H: Double?
+    let singleHour: Double?
 
     enum CodingKeys: String, CodingKey {
-        case the1H = "1h"
+        case singleHour = "1h"
     }
 }
 
@@ -95,44 +96,8 @@ struct Wind: Codable {
     let gust: Double?
 }
 
-// MARK: - Helper functions for creating encoders and decoders
-
-func newJSONDecoder() -> JSONDecoder {
-    let decoder = JSONDecoder()
-    if #available(iOS 10.0, OSX 10.12, tvOS 10.0, watchOS 3.0, *) {
-        decoder.dateDecodingStrategy = .iso8601
-    }
-    return decoder
-}
-
-func newJSONEncoder() -> JSONEncoder {
-    let encoder = JSONEncoder()
-    if #available(iOS 10.0, OSX 10.12, tvOS 10.0, watchOS 3.0, *) {
-        encoder.dateEncodingStrategy = .iso8601
-    }
-    return encoder
-}
-
-// MARK: - URLSession response handlers
-
-extension URLSession {
-    fileprivate func codableTask<T: Codable>(with url: URL, completionHandler: @escaping (T?, URLResponse?, Error?) -> Void) -> URLSessionDataTask {
-        return self.dataTask(with: url) { data, response, error in
-            guard let data = data, error == nil else {
-                completionHandler(nil, response, error)
-                return
-            }
-            completionHandler(try? newJSONDecoder().decode(T.self, from: data), response, nil)
-        }
-    }
-
-    func weatherTask(with url: URL, completionHandler: @escaping (Weather?, URLResponse?, Error?) -> Void) -> URLSessionDataTask {
-        return self.codableTask(with: url, completionHandler: completionHandler)
-    }
-}
-
 extension Weather {
     static var example: Weather {
-        Weather(coord: Coord(lon: 1, lat: 1), weather: [WeatherElement(id: 1, main: "Weather", weatherDescription: "N/A", icon: "cloud")], base: "base", main: Main(temp: 4, feelsLike: 4, tempMin: 4, tempMax: 4, pressure: 4, humidity: 4, seaLevel: 4, grndLevel: 4), visibility: 4, wind: Wind(speed: 3, deg: 3, gust: 3), rain: Rain(the1H: 4), clouds: Clouds(all: 3), dt: 4, sys: Sys(type: 4, id: 4, country: "USA", sunrise: 5, sunset: 5), timezone: 5, id: 5, name: "N/A", cod: 5)
+        Weather(coord: Coord(lon: 1, lat: 1), weather: [WeatherElement(id: 1, main: "Weather", weatherDescription: "N/A", icon: "cloud")], base: "base", main: Main(temp: 4, feelsLike: 4, tempMin: 4, tempMax: 4, pressure: 4, humidity: 4, seaLevel: 4, grndLevel: 4), visibility: 4, wind: Wind(speed: 3, deg: 3, gust: 3), rain: Rain(singleHour: 4), clouds: Clouds(all: 3), dt: 4, sys: Sys(type: 4, id: 4, country: "USA", sunrise: 5, sunset: 5), timezone: 5, id: 5, name: "N/A", cod: 5)
     }
 }

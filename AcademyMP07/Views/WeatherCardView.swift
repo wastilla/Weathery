@@ -10,42 +10,46 @@ import Foundation
 import SwiftUI
 
 struct WeatherCardView: View {
-    let name: String?
-    let temperature: String?
-    let highTemp: String?
-    let lowTemp: String?
-    let weatherIcon: String?
-    let description: String?
-
-    
+    @ObservedObject var viewModel: WeatherViewModel
+    let weather: Weather
+//    let cityName: String
+//    let weather: Weather
+   
     var body: some View {
-        Text(name ?? "none")
-            .font(.system(.largeTitle, design: .rounded))
-            .foregroundColor(.white)
-            .bold()
-        
-        Text(temperature ?? "N/A")
-            .font(.system(size: 100))
-            .foregroundColor(.white)
-            .bold()
-            
-        HStack {
-            Text("high: " + (highTemp ?? "N/A"))
-                .font(.system(.title2, design: .rounded))
-                .foregroundColor(.white)
-            Text("low: " + (lowTemp ?? "N/A"))
-                .font(.system(.title2, design: .rounded))
-                .foregroundColor(.white)
+        ZStack {
+            Color.black.opacity(0.5)
+            VStack {
+                Text(weather.name ?? "none")
+                    .font(.system(.largeTitle, design: .rounded))
+                    .foregroundColor(.white)
+                    .bold()
+                
+                Text("\(Int(weather.main?.temp?.toFahrenheit() ?? -300)) F")
+                    .font(.system(size: 100))
+                    .foregroundColor(.white)
+                    .bold()
+                    
+                HStack {
+                    Text("high:  \(Int(weather.main?.tempMax?.toFahrenheit() ?? -300))")
+                        .font(.system(.title2, design: .rounded))
+                        .foregroundColor(.white)
+                    Text("low:  \(Int(weather.main?.tempMin?.toFahrenheit() ?? -300))")
+                        .font(.system(.title2, design: .rounded))
+                        .foregroundColor(.white)
+                }
+                
+                Image(systemName: viewModel.getWeatherIcon(description: weather.weather?[0].weatherDescription ?? ""))
+                    .font(.system(size: 75, design: .rounded))
+                    .foregroundColor(.white)
+                    .bold()
+                    .padding([.top])
+                Text(weather.weather?[0].weatherDescription ?? "N/A")
+                    .font(.system(.title2, design: .rounded))
+                    .foregroundColor(.white)
+                    .padding([.bottom], 5)
+            }
+            .frame(width: 300, height: 200)
         }
-        
-        Image(systemName: weatherIcon ?? "")
-            .font(.system(size: 75, design: .rounded))
-            .foregroundColor(.white)
-            .bold()
-            .padding([.top])
-        Text(description ?? "N/A")
-            .font(.system(.title2, design: .rounded))
-            .foregroundColor(.white)
-            .padding([.bottom], 5)
+        .cornerRadius(10)
     }
 }
