@@ -9,7 +9,9 @@ import SwiftUI
 
 @main
 struct AcademyMP07App: App {
+  
     var body: some Scene {
+        
         WindowGroup {
             ContentView()
         }

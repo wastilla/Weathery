@@ -12,8 +12,7 @@ import SwiftUI
 struct WeatherCardView: View {
     @ObservedObject var viewModel: WeatherViewModel
     let weather: Weather
-//    let cityName: String
-//    let weather: Weather
+
    
     var body: some View {
         ZStack {

@@ -10,8 +10,10 @@ import SwiftUI
 struct ContentView: View {
     
     @State private var showingSheet = false
+    @State var unit: String = "Farenheit"
    
     @StateObject var viewModel = WeatherViewModel()
+    
     
     var body: some View {
         NavigationStack {
@@ -61,6 +63,8 @@ struct ContentView: View {
                         }
                     }
                     .padding([.leading], 20)
+                    .padding(.bottom, viewModel.cities.isEmpty ?  350 : 0)
+                  
                     
                     /*
                       WeatherCardView(name: viewModel.weather?.name, temperature: viewModel.temperature, highTemp: viewModel.highTemp, lowTemp: viewModel.lowTemp, weatherIcon: viewModel.weatherIcon, description: viewModel.description)
@@ -77,10 +81,11 @@ struct ContentView: View {
                              .font(.system(.largeTitle, design: .rounded))
                              .foregroundColor(.black)
                      })*/
+                 
                 }
             }
             .sheet(isPresented: $showingSheet) {
-                SheetView(showingSheet: $showingSheet, viewModel: viewModel)
+                SheetView(showingSheet: $showingSheet, unit: $unit, viewModel: viewModel)
             }
         }
     }
@@ -89,5 +94,6 @@ struct ContentView: View {
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
         ContentView()
+            
     }
 }
