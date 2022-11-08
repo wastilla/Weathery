@@ -10,7 +10,7 @@ import SwiftUI
 struct ContentView: View {
     
     @State private var showingSheet = false
-    @State var unit: String = "Farenheit"
+    @State var unit: String = "Fahrenheit"
    
     @StateObject var viewModel = WeatherViewModel()
     
@@ -43,7 +43,7 @@ struct ContentView: View {
                                 .bold()
                         }
                     }
-                    .padding([.bottom], 200)
+                    .padding([.bottom], 180)
                     .padding([.leading, .trailing], 20)
                     
                     ScrollView(.horizontal) {
@@ -51,7 +51,7 @@ struct ContentView: View {
                             if viewModel.weathers.count != 0 {
                                 ForEach(viewModel.weathers) { weather in
                                     VStack {
-                                        WeatherCardView(viewModel: viewModel, weather: weather)
+                                        WeatherCardView(viewModel: viewModel, unit: $unit, weather: weather)
                                     }
                                 }
                             } else {

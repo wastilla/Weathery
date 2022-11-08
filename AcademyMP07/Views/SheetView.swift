@@ -10,7 +10,7 @@ import SwiftUI
 
 struct SheetView: View {
     @State var newCity: String = ""
-    @State var units: [String] = ["Farenheit", "Calcius", "Kelvin"]
+    @State var units: [String] = ["Fahrenheit", "Celcius", "Kelvin"]
     
     @Binding var showingSheet: Bool
     @Binding var unit: String
@@ -49,7 +49,7 @@ struct SheetView: View {
                     }
                     
                     Section {
-                        Picker(selection: $unit, label: Text("units")){
+                        Picker(selection: $unit, label: Text("")){
                             ForEach(units, id: \.self){  unit in
                                 Text(unit)
                             }

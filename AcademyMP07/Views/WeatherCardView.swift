@@ -11,6 +11,8 @@ import SwiftUI
 
 struct WeatherCardView: View {
     @ObservedObject var viewModel: WeatherViewModel
+    
+    @Binding var unit: String
     let weather: Weather
 
    
@@ -18,24 +20,56 @@ struct WeatherCardView: View {
         ZStack {
             Color.black.opacity(0.5)
             VStack {
+                
+                
                 Text(weather.name ?? "none")
                     .font(.system(.largeTitle, design: .rounded))
                     .foregroundColor(.white)
                     .bold()
-                
-                Text("\(Int(weather.main?.temp?.toFahrenheit() ?? -300)) F")
-                    .font(.system(size: 100))
-                    .foregroundColor(.white)
-                    .bold()
-                    
-                HStack {
-                    Text("high:  \(Int(weather.main?.tempMax?.toFahrenheit() ?? -300))")
-                        .font(.system(.title2, design: .rounded))
+                if unit == "Fahrenheit"{
+                    Text("\(Int(weather.main?.temp?.toFahrenheit() ?? -300))°F")
+                        .font(.system(size: 100))
                         .foregroundColor(.white)
-                    Text("low:  \(Int(weather.main?.tempMin?.toFahrenheit() ?? -300))")
-                        .font(.system(.title2, design: .rounded))
+                        .bold()
+                        
+                    HStack {
+                        Text("high:  \(Int(weather.main?.tempMax?.toFahrenheit() ?? -300))")
+                            .font(.system(.title2, design: .rounded))
+                            .foregroundColor(.white)
+                        Text("low:  \(Int(weather.main?.tempMin?.toFahrenheit() ?? -300))")
+                            .font(.system(.title2, design: .rounded))
+                            .foregroundColor(.white)
+                    }
+                } else if unit == "Kelvin" {
+                    Text("\(Int(weather.main?.temp ?? -300))°K")
+                        .font(.system(size: 100))
                         .foregroundColor(.white)
+                        .bold()
+                        
+                    HStack {
+                        Text("high:  \(Int(weather.main?.tempMax ?? -300))")
+                            .font(.system(.title2, design: .rounded))
+                            .foregroundColor(.white)
+                        Text("low:  \(Int(weather.main?.tempMin ?? -300))")
+                            .font(.system(.title2, design: .rounded))
+                            .foregroundColor(.white)
+                    }
+                } else if unit == "Celcius" {
+                    Text("\(Int((weather.main?.temp ?? 0) - 273))°C")
+                        .font(.system(size: 100))
+                        .foregroundColor(.white)
+                        .bold()
+                        
+                    HStack {
+                        Text("high:  \(Int((weather.main?.tempMax ?? 0) - 273))")
+                            .font(.system(.title2, design: .rounded))
+                            .foregroundColor(.white)
+                        Text("low:  \(Int((weather.main?.tempMin ?? 0) - 273))")
+                            .font(.system(.title2, design: .rounded))
+                            .foregroundColor(.white)
+                    }
                 }
+                
                 
                 Image(systemName: viewModel.getWeatherIcon(description: weather.weather?[0].weatherDescription ?? ""))
                     .font(.system(size: 75, design: .rounded))
