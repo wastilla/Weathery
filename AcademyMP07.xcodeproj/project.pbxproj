@@ -15,6 +15,7 @@
 		7406CFF52909CCA40033F87D /* WeatherViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7406CFF42909CCA40033F87D /* WeatherViewModel.swift */; };
 		74208018291303EB0082869F /* WeatherCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74208017291303EB0082869F /* WeatherCardView.swift */; };
 		7420801C291305D60082869F /* SheetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7420801B291305D60082869F /* SheetView.swift */; };
+		746477CE291C42A10055087D /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 746477CD291C42A10055087D /* SettingsView.swift */; };
 		74FF9B45290C6C5300B34AF3 /* DoubleExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74FF9B44290C6C5300B34AF3 /* DoubleExtensions.swift */; };
 		74FF9B472910986A00B34AF3 /* WeatherView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74FF9B462910986A00B34AF3 /* WeatherView.swift */; };
 /* End PBXBuildFile section */
@@ -29,6 +30,7 @@
 		7406CFF42909CCA40033F87D /* WeatherViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherViewModel.swift; sourceTree = "<group>"; };
 		74208017291303EB0082869F /* WeatherCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherCardView.swift; sourceTree = "<group>"; };
 		7420801B291305D60082869F /* SheetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SheetView.swift; sourceTree = "<group>"; };
+		746477CD291C42A10055087D /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		74FF9B44290C6C5300B34AF3 /* DoubleExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DoubleExtensions.swift; sourceTree = "<group>"; };
 		74FF9B462910986A00B34AF3 /* WeatherView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -105,6 +107,7 @@
 				7406CFE42909C6650033F87D /* ContentView.swift */,
 				74208017291303EB0082869F /* WeatherCardView.swift */,
 				7420801B291305D60082869F /* SheetView.swift */,
+				746477CD291C42A10055087D /* SettingsView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -190,6 +193,7 @@
 				7406CFE52909C6650033F87D /* ContentView.swift in Sources */,
 				7420801C291305D60082869F /* SheetView.swift in Sources */,
 				7406CFF52909CCA40033F87D /* WeatherViewModel.swift in Sources */,
+				746477CE291C42A10055087D /* SettingsView.swift in Sources */,
 				74FF9B45290C6C5300B34AF3 /* DoubleExtensions.swift in Sources */,
 				74208018291303EB0082869F /* WeatherCardView.swift in Sources */,
 				74FF9B472910986A00B34AF3 /* WeatherView.swift in Sources */,

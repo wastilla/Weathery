@@ -10,26 +10,20 @@ import SwiftUI
 
 struct SheetView: View {
     @State var newCity: String = ""
-    @State var units: [String] = ["Fahrenheit", "Celcius", "Kelvin"]
+    
     
     @Binding var showingSheet: Bool
     @Binding var unit: String
     
     @ObservedObject var viewModel: WeatherViewModel
     
-    
-    
-   
-    
     var body: some View {
         NavigationStack {
             VStack {
                 Form {
                     Section {
-                        TextField("Enter a City", text: $newCity)
-                            
+                        TextField("Enter a City Name", text: $newCity)
                             .foregroundColor(.blue)
-                            .textFieldStyle(RoundedBorderTextFieldStyle())
                             .font(.title2)
                             .multilineTextAlignment(.center)
                             .padding([.leading, .trailing], 40)
@@ -45,19 +39,9 @@ struct SheetView: View {
                             }
                             
                     } header: {
-                        Text("Enter a City to View Its Weather")
+                        Text("Add a City")
                     }
-                    
-                    Section {
-                        Picker(selection: $unit, label: Text("")){
-                            ForEach(units, id: \.self){  unit in
-                                Text(unit)
-                            }
-                        }
-                    } header: {
-                        Text("Units")
-                    }
-                    
+                   
                 }
             }
             .toolbar {

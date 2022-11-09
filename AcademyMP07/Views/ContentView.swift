@@ -8,12 +8,10 @@
 import SwiftUI
 
 struct ContentView: View {
-    
     @State private var showingSheet = false
     @State var unit: String = "Fahrenheit"
    
     @StateObject var viewModel = WeatherViewModel()
-    
     
     var body: some View {
         NavigationStack {
@@ -42,10 +40,17 @@ struct ContentView: View {
                                 .foregroundColor(.white)
                                 .bold()
                         }
+                        
+                        NavigationLink(destination: SettingsView(unit: $unit)){
+                            Image(systemName: "gear")
+                                .font(.system(.title))
+                                .foregroundColor(.white)
+                                .bold()
+                        }
                     }
-                    .padding([.bottom], 180)
                     .padding([.leading, .trailing], 20)
-                    
+                    Spacer()
+                    Spacer()
                     ScrollView(.horizontal) {
                         HStack {
                             if viewModel.weathers.count != 0 {
@@ -63,25 +68,10 @@ struct ContentView: View {
                         }
                     }
                     .padding([.leading], 20)
-                    .padding(.bottom, viewModel.cities.isEmpty ?  350 : 0)
-                  
-                    
-                    /*
-                      WeatherCardView(name: viewModel.weather?.name, temperature: viewModel.temperature, highTemp: viewModel.highTemp, lowTemp: viewModel.lowTemp, weatherIcon: viewModel.weatherIcon, description: viewModel.description)
-                    
-                     Button(action: {
-                         viewModel.query = self.query
-                        
-                         Task {
-                             await viewModel.fetch2()
-                         }
-                     }, label: {
-                         Text("Search")
-                             .bold()
-                             .font(.system(.largeTitle, design: .rounded))
-                             .foregroundColor(.black)
-                     })*/
-                 
+                    // .padding(.bottom, viewModel.cities.isEmpty ?  350 : 0)
+                    Spacer()
+                    Spacer()
+                    Spacer()
                 }
             }
             .sheet(isPresented: $showingSheet) {
@@ -94,6 +84,5 @@ struct ContentView: View {
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
         ContentView()
-            
     }
 }

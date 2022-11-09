@@ -15,18 +15,16 @@ struct WeatherCardView: View {
     @Binding var unit: String
     let weather: Weather
 
-   
     var body: some View {
         ZStack {
-            Color.black.opacity(0.5)
+            Color.black.opacity(0.3)
             VStack {
-                
-                
                 Text(weather.name ?? "none")
                     .font(.system(.largeTitle, design: .rounded))
                     .foregroundColor(.white)
                     .bold()
-                if unit == "Fahrenheit"{
+                    .padding(.bottom, 20)
+                if unit == "Fahrenheit" {
                     Text("\(Int(weather.main?.temp?.toFahrenheit() ?? -300))°F")
                         .font(.system(size: 100))
                         .foregroundColor(.white)
@@ -54,7 +52,7 @@ struct WeatherCardView: View {
                             .font(.system(.title2, design: .rounded))
                             .foregroundColor(.white)
                     }
-                } else if unit == "Celcius" {
+                } else if unit == "Celsius" {
                     Text("\(Int((weather.main?.temp ?? 0) - 273))°C")
                         .font(.system(size: 100))
                         .foregroundColor(.white)
@@ -69,8 +67,7 @@ struct WeatherCardView: View {
                             .foregroundColor(.white)
                     }
                 }
-                
-                
+                   
                 Image(systemName: viewModel.getWeatherIcon(description: weather.weather?[0].weatherDescription ?? ""))
                     .font(.system(size: 75, design: .rounded))
                     .foregroundColor(.white)
